@@ -1,5 +1,5 @@
 import codecs
-import distance
+import similarity
 from math import sqrt
 
 class kNN:
@@ -20,7 +20,7 @@ class kNN:
         # for some reason I want to save the name of the metric
         self.metric = metric
         if self.metric == 'pearson':
-            self.fn = distance.pearson
+            self.fn = similarity.pearson
         # if data is dictionary set recommender data to it
         if type(data).__name__ == 'dict':
             self.data = data

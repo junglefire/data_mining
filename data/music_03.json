@@ -1,0 +1,33 @@
+{
+    "Ben": {
+        "Fall Out Boy": 1,
+        "Imagine Dragons": 3,
+        "Kacey Musgraves": 4,
+        "Lorde": 3
+    },
+    "Chris": {
+        "Daft Punk": 4,
+        "Fall Out Boy": 1,
+        "Imagine Dragons": 4,
+        "Kacey Musgraves": 4,
+        "Lorde": 3
+    },
+    "David": {
+        "Daft Punk": 5,
+        "Fall Out Boy": 1,
+        "Imagine Dragons": 3,
+        "Lorde": 4
+    },
+    "Matt": {
+        "Daft Punk": 4,
+        "Fall Out Boy": 1,
+        "Imagine Dragons": 3,
+        "Lorde": 4
+    },
+    "Tori": {
+        "Daft Punk": 5,
+        "Fall Out Boy": 3,
+        "Imagine Dragons": 4,
+        "Kacey Musgraves": 5
+    }
+}

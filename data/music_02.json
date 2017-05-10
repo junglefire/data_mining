@@ -1,0 +1,19 @@
+{
+    "Amy": {
+        "PSY": 3,
+        "Taylor Swift": 4,
+        "Whitney Houston": 4
+    },
+    "Ben": {
+        "PSY": 2,
+        "Taylor Swift": 5
+    },
+    "Clara": {
+        "PSY": 3.5,
+        "Whitney Houston": 4
+    },
+    "Daisy": {
+        "Taylor Swift": 5,
+        "Whitney Houston": 3
+    }
+}

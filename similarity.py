@@ -17,9 +17,11 @@ def minkowski_distance(rating1, rating2, r):
     else:
         return 0
 
+# 曼哈顿距离
 def manhattan_distance(rating1, rating2):
     return minkowski_distance(rating1, rating2, 1)
 
+# 欧氏距离
 def euclidean_distance(rating1, rating2):
     return minkowski_distance(rating1, rating2, 2)
 
@@ -53,7 +55,6 @@ def cosine_similarity(rating1, rating2):
     sum_xy = 0
     sum_x2 = 0
     sum_y2 = 0
-    
     for key in rating1:
         if key in rating2:
             x = rating1[key]
@@ -61,9 +62,25 @@ def cosine_similarity(rating1, rating2):
             sum_xy += x * y
     for key in rating1:
         sum_x2 += pow(rating1[key], 2)
-    
     for key in rating2:
         sum_y2 += pow(rating2[key], 2)
-
     return sum_xy / (sqrt(sum_x2) * sqrt(sum_y2))
+
+# 调整后的余弦相似度，用于计算物品的相似模型
+def compute_similarity_model(m1, m2, user_ratings):
+    averages = {}
+    for (key, ratings) in user_ratings.items():
+        averages[key] = (float(sum(ratings.values())) / len(ratings.values()))
+    num = 0
+    dem1 = 0
+    dem2 = 0
+    for (user, ratings) in user_ratings.items():
+        if m1 in ratings and m2 in ratings:
+            avg = averages[user]
+            num += (ratings[m1] - avg) * (ratings[m2] - avg)
+            dem1 += (ratings[m1] - avg)**2
+            dem2 += (ratings[m2] - avg)**2
+    return num / (sqrt(dem1) * sqrt(dem2))
+
+
 
