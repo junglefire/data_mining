@@ -16,12 +16,12 @@ users = ""
 with open(sys.argv[1], 'r') as f:
     users = json.load(f)
 
-r = recommender.SlopeOne(users, debug=True)
+r = recommender.SlopeOne(users, debug=False)
 r.computeDeviations()
-print("deviations: ", r.deviations)
+# print("deviations: ", r.deviations)
 
 print("Recommender for 'Ben':")
-print("  -->", r.slopeOneRecommendations(users['Ben']))
+print("  -->", r.slopeOneRecommendations(users['1']))
 
 
 

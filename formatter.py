@@ -1,5 +1,7 @@
 #!/usr/bin/env/python
 import sys
+import shlex
+import json
 from pprint import *
 
 def csv2json(filename):
@@ -44,21 +46,30 @@ def movielens2json(movies, ratings):
         if i == 0:
             i += 1
             continue
-        items = line.split(",")
+        lex_str = shlex.shlex(line, posix=True)
+        lex_str.whitespace = ','
+        lex_str.wordchars += ' ()/'
+        lex_str.quotes = '"'
+        lex_str.whitesapce_split = True
+        items = list(lex_str)
         movies_dict[items[0]] = items[1]
         i += 1
     f.close()
     # 读取用户评分
     f = open(ratings, 'r')
     i = 0
+    ratings = {}
     for line in f:
         line = line.strip('\n')
         if i == 0:
             i += 1
             continue
         items = line.split(",")
-        print("user_%s:%s:%f" % (items[0], movies_dict[items[1]], float(items[2])))
+        # print("user_%s:%s:%f" % (items[0], movies_dict[items[1]], float(items[2])))
+        ratings.setdefault(items[0], {})
+        ratings[items[0]][movies_dict[items[1]]]=float(items[2])
     f.close()
+    print(json.dumps(ratings))
 
 if __name__ == '__main__':
     if len(sys.argv) <= 2:
