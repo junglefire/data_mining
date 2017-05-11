@@ -200,6 +200,7 @@ class recommender:
             print("%s\t%i" % (self.convertProductID2name(items[i][0]),
                               items[i][1]))
 
+    # 计算偏差
     def computeDeviations(self):
         # for each person in the data, get their ratings
         for ratings in self.data.values():
@@ -216,11 +217,11 @@ class recommender:
                         self.deviations[item].setdefault(item2, 0.0)
                         self.frequencies[item][item2] += 1
                         self.deviations[item][item2] += rating - rating2
-        print("frq: ", self.frequencies)
         for (item, ratings) in self.deviations.items():
             for item2 in ratings:
                 ratings[item2] /= self.frequencies[item][item2]
 
+    # 基于SlopeOne的推荐
     def slopeOneRecommendations(self, userRatings):
         recommendations = {}
         frequencies = {}
@@ -228,8 +229,7 @@ class recommender:
         for (userItem, userRating) in userRatings.items():
             # for every item in our dataset that the user didn't rate
             for (diffItem, diffRatings) in self.deviations.items():
-                if diffItem not in userRatings and \
-                   userItem in self.deviations[diffItem]:
+                if diffItem not in userRatings and userItem in self.deviations[diffItem]:
                     freq = self.frequencies[diffItem][userItem]
                     recommendations.setdefault(diffItem, 0.0)
                     frequencies.setdefault(diffItem, 0)
@@ -342,3 +342,8 @@ print(computeUserAverages(users3))
 """
 r = recommender(users2)
 r.computeDeviations()
+print("deviations: ", r.deviations)
+print("Recommender for 'Ben':")
+print("  -->", r.slopeOneRecommendations(users2['Ben']))
+
+

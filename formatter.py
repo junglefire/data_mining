@@ -1,4 +1,6 @@
 #!/usr/bin/env/python
+import sys
+from pprint import *
 
 def csv2json(filename):
     f = open(filename, 'r')
@@ -32,5 +34,40 @@ def csv2json(filename):
     f.close()
     return ratings
 
-if __name__ == "__main__":
-    print(csv2json("data/Movie_Ratings.csv"))
+def movielens2json(movies, ratings):
+    # 加载电影ID和名称的对应字典
+    f = open(movies, 'r')
+    i = 0
+    movies_dict = {}
+    for line in f:
+        line = line.strip('\n')
+        if i == 0:
+            i += 1
+            continue
+        items = line.split(",")
+        movies_dict[items[0]] = items[1]
+        i += 1
+    f.close()
+    # 读取用户评分
+    f = open(ratings, 'r')
+    i = 0
+    for line in f:
+        line = line.strip('\n')
+        if i == 0:
+            i += 1
+            continue
+        items = line.split(",")
+        print("user_%s:%s:%f" % (items[0], movies_dict[items[1]], float(items[2])))
+    f.close()
+
+if __name__ == '__main__':
+    if len(sys.argv) <= 2:
+        print("[usage] %s <format> <filename>" % sys.argv[0])
+        sys.exit(-1)
+
+    if sys.argv[1] == "csv2json":
+        pprint(csv2json(sys.argv[2]))
+
+    if sys.argv[1] == "movielens2json":
+        movielens2json(sys.argv[2], sys.argv[3])
+
